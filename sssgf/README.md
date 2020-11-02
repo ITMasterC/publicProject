@@ -3,7 +3,7 @@ Hello world new project template.
 
 
 ## [conMager](https://github.com/ITMasterC/publicProject/tree/master/sssgf/assets/Script/SSSGF/conMagers): 动态资源控制器
-   **winNodeMager:** 弹窗预制体资源控制器，弹窗预制体资源存放在 “[prefabsWinNodes](https://github.com/ITMasterC/publicProject/tree/master/sssgf/assets/prefabsWinNodes)” 文件夹下，通过 KEY.TS 中的【ui 弹窗配置】配置好对应的资源详细路径。（按需加载实例化）  
+   **winNodeMager:** 弹窗预制体资源控制器，弹窗预制体资源存放在 “[prefabsWinNodes](https://github.com/ITMasterC/publicProject/tree/master/sssgf/assets/prefabsWinNodes)” 文件夹下，通过 [KEY.TS](https://github.com/ITMasterC/publicProject/blob/master/sssgf/assets/Script/KEY.ts) 中的【ui 弹窗配置】配置好对应的资源详细路径。（按需加载实例化）  
    
    **audioMager:**  音效资源、音效播放控制器，音效资源放在 “[audioRes](https://github.com/ITMasterC/publicProject/tree/master/sssgf/assets/audioRes)” 文件夹下，通过资源的名称进行播放。   
    
