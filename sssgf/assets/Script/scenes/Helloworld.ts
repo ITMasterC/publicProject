@@ -1,5 +1,5 @@
 const {ccclass, property} = cc._decorator;
-import {winRootNode, KEY, conMager, _pl_fun, LogWrap, NumberUtil} from "./../SSSGF/ssscgf"
+import {winRootNode, KEY, conMager, _pl_fun, LogWrap, NumberUtil, GameDataStorage} from "./../SSSGF/ssscgf"
 @ccclass
 export default class Helloworld extends cc.Component {
 
@@ -14,6 +14,7 @@ export default class Helloworld extends cc.Component {
     start () {
         _pl_fun.getInstance().init();
         conMager.getInstance().init();
+        GameDataStorage.init();
         // init logic
         this.label.string = this.text;
         this.timeFlag = 0;
