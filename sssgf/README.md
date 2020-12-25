@@ -9,3 +9,5 @@ Hello world new project template.
    
    **poolNodeMager:** 需要通过动态获取的小件预制体，资源存放在 “[prefabsPoolNodes](https://github.com/ITMasterC/publicProject/tree/master/sssgf/assets/prefabsPoolNodes)” 文件夹下，通过 KEY.TS 中的【用到对象池的预制体配置】配置好对应的资源详细路径。“usePool” 字段标识是否使用对象池进行管理.   
    
+
+## 优化数据存储、音效播放、添加UIaction简易控制脚本、添加消息事件
