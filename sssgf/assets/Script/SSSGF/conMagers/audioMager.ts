@@ -18,6 +18,10 @@ export default class _audioMager{
     //@property
     bgmId: any;
 
+    _flagTime: boolean = false;
+    _oldName: string = "";
+    _audioId : number = undefined;
+
     init() {
         cc.assetManager.loadBundle("audioRes", (err, bundle) => {
             this.bundle = bundle;
@@ -36,12 +40,28 @@ export default class _audioMager{
     }
     
     playAudioEff(type: string = "click", loop: boolean = false, volume: number = 1) {
-        this.audioEngine.play(this.audioNames[type], loop, volume);
+        this._oldName = type;
+        if(this._flagTime)return;
+        if (this._oldName == "yxcj_chb") {
+            this._flagTime = true;
+            setTimeout(() => {
+                this._flagTime = false;
+            }, 1000);
+        }
+        if(loop){
+            this._audioId = this.audioEngine.play(this.audioNames[type], loop, volume);
+        }else{
+            this.audioEngine.play(this.audioNames[type], loop, volume);
+        }
+    }
+
+    stopAudioEff(){
+        this.audioEngine.stop(this._audioId);
     }
 
     playBGM(bgmName: string) {
         if (this.audioEngine.isMusicPlaying()) return;
-        if (this.audioEngine) this.bgmId = this.audioEngine.playMusic(bgmName, true);
+        if (this.audioEngine) this.bgmId = this.audioEngine.playMusic(this.audioNames[bgmName], true);
     }
 
     stopBGM() {

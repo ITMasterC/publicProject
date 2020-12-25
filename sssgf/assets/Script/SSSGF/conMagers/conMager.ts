@@ -8,6 +8,7 @@ export default class conMager {
     private _poolNodeMager: poolNodeMager;
     private _winNodeMager: winNodeMager;
     private _audioMager: audioMager;
+    _msgAtion: any;
 
     public static getInstance(): conMager{
         if(!this.instance){
@@ -23,6 +24,7 @@ export default class conMager {
         this._winNodeMager.init();
         this._poolNodeMager.init();
         this._audioMager.init();
+        this._msgAtion = new cc.EventTarget();
     }
 
     /**

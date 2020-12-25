@@ -1,6 +1,11 @@
-// interface Window {
-//     _winNodeMager: any;
-//     _poolNodeMager: any;
-//     _videoEvent: any;
-//     wx:any;
-// }
+declare interface CCSysLocalStorage {
+    getItem(key: string): any;
+    setItem(key: string, value: any);
+    removeItem(key: string);
+    clear();
+    key();
+}
+
+declare interface tt{
+
+}

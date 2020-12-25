@@ -1,4 +1,5 @@
 import conMager from "../../conMagers/conMager";
+
 export default class videoAdEvent {
     /*使用方式
         1 实例化对象后，注意只调用一次onInitVedio()函数预加载广告
@@ -13,6 +14,7 @@ export default class videoAdEvent {
     autoPlayFlag = false;
     adId = "";
     isDisable = false;
+    idDebug: boolean = false;
 
     // 构造一个广为人知的接口，供用户对该类进行实例化
     init(adId) {
@@ -21,8 +23,8 @@ export default class videoAdEvent {
     }
 
     onInitVedio = function () {
-        if (cc.sys.platform === cc.sys.WECHAT_GAME && wx.createRewardedVideoAd) {
-            this.videoAd = wx.createRewardedVideoAd({
+        if (cc.sys.platform === cc.sys.BYTEDANCE_GAME && tt.createRewardedVideoAd) {
+            this.videoAd = tt.createRewardedVideoAd({
                 adUnitId: this.adId
             });
             this.videoAd.onLoad((err) => {
@@ -77,11 +79,17 @@ export default class videoAdEvent {
         setTimeout(() => {
             this.isDisable = false;
         }, 800);
-        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+        if (cc.sys.platform === cc.sys.BYTEDANCE_GAME) {
+            if(this.idDebug){
+                if (this.successCb) {
+                    this.successCb();
+                }
+                return;
+            }
             if (this.videoLoad) {
                 this.videoAd.show();
             } else {
-                if (!this.autoPlayFlag) conMager.getInstance().getPoolNode("w_tipNode", undefined, "广告获取失败,请重试");
+                if (!this.autoPlayFlag) conMager.getInstance().getPoolNode("tipNode",  undefined, "广告获取失败,请重试");
                 this.videoAd.load().then(() => {
                     console.log("手动加载成功");
                     if (this.autoPlayFlag) return this.videoAd.show();
@@ -94,7 +102,10 @@ export default class videoAdEvent {
                 });
             }
         } else {
-            conMager.getInstance().getPoolNode("w_tipNode",undefined, "暂无广告,请稍后再试");
+            // conMager.getInstance().getPoolNode("tipNode", undefined, "暂无广告,请稍后再试");
+            if (this.successCb) {
+                this.successCb();
+            }
         }
     }
 };

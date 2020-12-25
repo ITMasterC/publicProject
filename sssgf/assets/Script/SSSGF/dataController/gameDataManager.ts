@@ -1,23 +1,16 @@
+import { DATA } from "./DATA";
 import StorageManager from "./storageManager";
 
 export class User {
     /**
      * 初始用户数据
      */
-    private initUserData = {
-        username: "无",
-        usingCarIndex: 0,
-        carList:[1,0,0,0],
-        carInfo:[[1,0,0,0]],
-        trophyCount: 0,
-    }
-
-    carCount = 4;
+    private initUserData = DATA.Data
 
     /**
      * 用户数据
      */
-    private userData = null;
+    userData = DATA.Data;
 
     /**
      * 没有该用户会 初始化该用户出来
@@ -25,24 +18,29 @@ export class User {
      */
     constructor(username: string) {
         StorageManager.init();
-        this.userData = StorageManager.ins.getData("userData:" + username);
-        if (this.userData === null) {
-            if(this.initUserData.carList.length < this.carCount){
-                for(; this.initUserData.carList.length < this.carCount; ){
-                    this.initUserData.carList.push(0);
-                    this.initUserData.carInfo.push([1,0,0,0]);
-                }
-            }
+        let userData = StorageManager.ins.getData("userData:" + username);
+        console.log('-----------用户数据：', userData);
+        if (!userData) {
             this.userData = this.initUserData;
             this.userData.username = username;
-        } else{
-            this.userData = JSON.parse(this.userData);
-            if(this.userData.carList.length < this.carCount){
-                for(; this.userData.carList.length < this.carCount; ){
-                    this.userData.carList.push(0);
-                    this.userData.carInfo.push([1,0,0,0]);
+        } else {
+            userData = JSON.parse(userData);
+            for (const key of Object.keys(userData)) {
+                if (this.userData[key] != undefined) {
+                    if (key == "carList" || key == "carLevelInfo") {//数组的数据需要注意是否有添加新的元素
+                        if(this.userData[key].length != userData[key].length){
+                            for (let i = 0; i < userData[key].length; i++) {
+                                this.userData[key][i] = userData[key][i];
+                            }
+                        }else{
+                            this.userData[key] = userData[key];
+                        }
+                    } else {
+                        this.userData[key] = userData[key]
+                    }
                 }
             }
+            console.log('-----------用户数据：', this.userData);
         }
     }
 
@@ -50,18 +48,8 @@ export class User {
         return this.userData.username;
     }
 
-    getUsingCarIndex():number{
+    getUsingCarIndex(): number {
         return this.userData.usingCarIndex;
-    }
-
-    /**
-     * 玩家闯过了多少关
-     * @returns rush levels sum 
-     */
-    getRushLevelsSum(): number {
-        if (this.userData === null)
-            return;
-        return this.userData.levelsReview.length;
     }
 
 
@@ -73,12 +61,13 @@ export class User {
 
 export default class GameDataStorage {
     private static user: User = null;
-
+    public static configData: configData = null;
     /**
      * 游戏打开时必须执行一次
      */
     static init() {
         this.user = new User("SaiChe");
+        this.configData = new configData();
     }
 
     /**
@@ -99,4 +88,10 @@ export default class GameDataStorage {
     static preserveGameData() {
         this.user.preseverData();
     }
+}
+
+export class configData {//全局游戏控制变量
+    dragonAssets: any = null;
+    dragonAtlas: any = null;
+    isEnableClick:boolean = true;
 }
