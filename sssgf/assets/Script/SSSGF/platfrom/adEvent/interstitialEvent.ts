@@ -12,7 +12,7 @@ export default class interstitalEvent {
     }
 
     createrAd = function () {
-        if (cc.sys.platform === cc.sys.WECHAT_GAME && window.wx.createInterstitialAd) {
+        if (window.tt && window.wx.createInterstitialAd) {
             const isToutiaio = window.wx.getSystemInfoSync().appName === "Toutiao";
             // 插屏广告仅今日头条安卓客户端支持
             if (isToutiaio) {

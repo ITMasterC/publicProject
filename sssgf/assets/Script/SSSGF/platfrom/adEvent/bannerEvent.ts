@@ -20,7 +20,7 @@ export default class bannerEvent {
     init(idList) {
         this.bannerIdList = idList;
         this.bannerIdIndex = Math.floor(Math.random() * this.bannerIdList.length);
-        if (cc.sys.platform === cc.sys.WECHAT_GAME)this.systemIfon = wx.getSystemInfoSync(); //获取设备数据
+        if (window.tt)this.systemIfon = wx.getSystemInfoSync(); //获取设备数据
     }
 
     showBannerAd = function (isPop) { //2：不显示的窗口回来

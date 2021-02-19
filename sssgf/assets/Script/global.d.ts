@@ -6,6 +6,9 @@ declare interface CCSysLocalStorage {
     key();
 }
 
-declare interface tt{
-
+declare var tt: any;
+declare var kwaigame: any;
+interface Window {
+    tt,
+    kwaigame,
 }

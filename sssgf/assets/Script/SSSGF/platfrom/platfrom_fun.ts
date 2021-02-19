@@ -21,12 +21,16 @@ export default class _pl_fun{
     }
 
     public  init() {
-        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+        if (window.tt) {
             this.systemIfon = wx.getSystemInfoSync(); //获取设备数据
             this.screenIfon = wx.getLaunchOptionsSync();//启动小游戏的场景值
         }
         this.ad_videoEvent = new videoAdEvent();
-        this.ad_videoEvent.init('q0qhb4stuq1fajlao1');
+        if(window.tt){
+            this.ad_videoEvent.init('q0qhb4stuq1fajlao1');
+        }else if(window.kwaigame){
+            this.ad_videoEvent.init('2300000577_01');
+        }
         this.ad_bannerEvent =new bannerEvent();
         this.ad_bannerEvent.init(['adunit-f0c76553c3742a44', 'adunit-31311959cf5f090f', 'adunit-ccb098880f98cf09']);
         this.ad_interstitial = new interstitialEvent();
@@ -47,20 +51,20 @@ export default class _pl_fun{
 
     public showBanner(isPop = 2) {
         this.ad_bannerEvent.isShowBanner = true;
-        if (cc.sys.platform === cc.sys.WECHAT_GAME){
+        if (window.tt){
             this.ad_bannerEvent.showBannerAd(isPop);
         }
     }
 
     public updateBanner(){
-        if (cc.sys.platform === cc.sys.WECHAT_GAME){
+        if (window.tt){
             this.ad_bannerEvent.showBannerAd(4);
         }
     }
 
     public hideBanner() {
         this.ad_bannerEvent.isShowBanner = false;
-        if (cc.sys.platform === cc.sys.WECHAT_GAME){
+        if (window.tt){
             this.ad_bannerEvent.showBannerAd();
         }
     }

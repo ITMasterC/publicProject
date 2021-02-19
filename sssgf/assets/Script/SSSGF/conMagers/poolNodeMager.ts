@@ -46,6 +46,7 @@ export default class poolNodeMager extends cc.Component {
             }
         }
         node.destroy();
+        this.bundle.release(KEY.POOLCF[type].prefab);
     }
 }
 

@@ -7,23 +7,30 @@ export default class shareEvent {
     }
 
     onShare = function () {
-        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+        if (window.tt) {
             var title = "小游戏分享标题";
             var url = "./other/share.jpg";
             //被动分享 显示
-            window.wx.showShareMenu({
+            window.tt.showShareMenu({
                 withShareTicket: true
             })
-            window.wx.aldShareAppMessage({
+            window.tt.aldShareAppMessage({
                 title: title,
                 imageUrl: url
             })
-
-            if (cc.sys.platform === cc.sys.WECHAT_GAME && window.wx.aldStage) {
-                window.wx.aldSendEvent('分享', {
-                    "行为": "按钮分享",
-                });
+        } else if (window.kwaigame) {
+            let params = { title: undefined, desc: undefined, iconUrl: undefined, imageUrl: undefined, extension: undefined, response: undefined };
+            params.title = "最强大冒险2";
+            params.desc = "物理老师都过不了解密小游戏";
+            params.iconUrl = "游戏icon";
+            params.imageUrl = "分享图片";
+            params.extension = {
+                name: "test"
+            };
+            params.response = (result) => {
+                console.log("分享完成: " + JSON.stringify(result));
             }
+            kwaigame.shareToMsg(params);
         }
     };
 
@@ -31,19 +38,19 @@ export default class shareEvent {
         if (cc.sys.platform != cc.sys.WECHAT_GAME) return;
         var title = "小游戏分享标题";
         var url = "./other/share.jpg";
-        window.wx.showShareMenu({
+        window.tt.showShareMenu({
             withShareTicket: false
         });
-        window.wx.onShareAppMessage(function () {
+        window.tt.onShareAppMessage(function () {
             return {
                 title: title,
                 imageUrl: url,
                 query: 'k1=v1&ke=v2'
             }
         });
-        window.wx.onShow(function (res) {
+        window.tt.onShow(function (res) {
         });
-        window.wx.onHide(function (res) {
+        window.tt.onHide(function (res) {
         });
     };
 }
