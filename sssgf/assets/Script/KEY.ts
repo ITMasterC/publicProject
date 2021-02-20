@@ -44,4 +44,14 @@ export module KEY {
         boss = "boss",
     }
     /**************************************【声音资源名称】***************************************************/
+
+    /**资源类型 */
+    export enum ResType {
+        SpriteAtlas = "cc.SpriteAtlas",
+        SpriteFrame = "cc.SpriteFrame",
+        AudioClip = "cc.AudioClip",
+        Prefab = "cc.Prefab",
+        JsonAsset = "cc.JsonAsset",
+        TextAsset = "cc.TextAsset"
+    }
 }

@@ -29,6 +29,7 @@ export default class poolNodeMager extends cc.Component {
         }else{//第一次通过异步加载获得
             this.bundle.load(KEY.POOLCF[type].prefab, cc.Prefab,(err, prefab) => {
                 this.nodes[type] = prefab;
+                this.nodes[type].addRef();
                 if(KEY.POOLCF[type].usePool){
                     this.nodes[type+"Pool"] = new cc.NodePool();
                 }
@@ -46,6 +47,7 @@ export default class poolNodeMager extends cc.Component {
             }
         }
         node.destroy();
+        this.nodes[type].decRef();
         this.bundle.release(KEY.POOLCF[type].prefab);
     }
 }
